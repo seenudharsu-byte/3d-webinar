@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrowthCore — Turn Your LinkedIn From Invisible to Influential</title>
+<style>
+  :root{
+    --navy:#0b1c30;
+    --blue:#005d8f;
+    --blue-light:#d3e4fe;
+    --bg-soft:#f8f9ff;
+    --bg-section:#eff4ff;
+    --text-body:#404850;
+    --text-muted:#545f73;
+    --border-soft:rgba(191,199,209,0.3);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--navy);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{max-width:1280px;margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(248,249,255,0.8);
+    backdrop-filter:blur(12px);
+    box-shadow:0 10px 30px rgba(0,119,181,0.05);
+  }
+  .nav-inner{
+    max-width:1280px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    height:80px;padding:0 64px;
+  }
+  .logo{font-weight:700;font-size:20px;letter-spacing:-0.5px;color:var(--blue);}
+  .desktop-nav{display:flex;gap:24px;align-items:center;}
+  .desktop-nav a{font-size:16px;color:var(--text-muted);}
+  .desktop-nav a:hover{color:var(--blue);}
+  .btn-book{
+    background:var(--blue);color:#fff;font-size:14px;font-weight:500;
+    letter-spacing:0.14px;padding:12px 24px;border-radius:8px;
+    box-shadow:0 10px 15px rgba(0,119,181,0.2);
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .nav-toggle{display:none;background:none;border:none;font-size:24px;color:var(--blue);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:128px 64px 48px;
+    background:linear-gradient(157deg, rgb(211,228,254) 0%, rgb(248,249,255) 100%);
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1280px;margin:0 auto;
+    display:flex;align-items:center;justify-content:center;gap:37px;
+  }
+  .hero-copy{width:552px;max-width:100%;display:flex;flex-direction:column;gap:24px;}
+  .eyebrow{
+    display:inline-flex;align-self:flex-start;
+    background:rgba(0,93,143,0.1);color:var(--blue);
+    font-size:14px;font-weight:500;letter-spacing:0.14px;
+    padding:8px 16px;border-radius:9999px;
+  }
+  .hero h1{
+    font-size:48px;font-weight:700;line-height:56px;letter-spacing:-0.96px;color:var(--navy);
+  }
+  .hero h1 span{color:var(--blue);display:block;}
+  .hero p.lead{font-size:18px;line-height:28px;color:var(--text-body);}
+  .callout{
+    border-left:4px solid var(--blue);padding-left:20px;
+    font-size:16px;line-height:24px;color:var(--text-muted);
+  }
+  .hero-buttons{display:flex;gap:16px;padding-top:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--blue);color:#fff;font-size:14px;font-weight:500;letter-spacing:0.14px;
+    padding:18px 32px;border-radius:8px;box-shadow:0 10px 15px rgba(0,119,181,0.2);
+    display:inline-flex;align-items:center;justify-content:center;text-align:center;
+  }
+  .btn-secondary{
+    background:var(--bg-soft);color:var(--blue);font-size:14px;font-weight:500;letter-spacing:0.14px;
+    padding:18px 34px;border-radius:8px;border:2px solid rgba(0,93,143,0.2);
+    display:inline-flex;align-items:center;justify-content:center;text-align:center;
+  }
+  .hero-visual{width:562px;max-width:100%;display:flex;align-items:center;justify-content:center;}
+  .hero-visual-frame{
+    transform:rotate(3deg);
+    backdrop-filter:blur(6px);
+    background:rgba(255,255,255,0.7);
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,119,181,0.1);
+    padding:9px;width:100%;max-width:552px;
+  }
+  .hero-visual-frame img{border-radius:8px;width:100%;aspect-ratio:4/3;object-fit:cover;}
+
+  /* ---------- Achievement / Bento ---------- */
+  .achievements{background:var(--bg-section);padding:48px 64px;}
+  .achievements-inner{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px;}
+  .achievements-heading{max-width:672px;text-align:center;display:flex;flex-direction:column;gap:16px;}
+  .achievements-heading h2{font-size:32px;font-weight:600;letter-spacing:-0.32px;color:var(--navy);}
+  .achievements-heading p{font-size:16px;color:var(--text-muted);}
+  .bento{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%;
+  }
+  .bento-card{
+    border-radius:12px;padding:33px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .bento-card .icon{margin-bottom:16px;font-size:28px;}
+  .bento-card h3{font-size:20px;font-weight:600;margin-bottom:8px;}
+  .bento-card p{font-size:16px;line-height:24px;}
+  .card-light{
+    background:var(--bg-soft);border:1px solid var(--border-soft);
+    box-shadow:0 10px 15px rgba(0,119,181,0.05);
+    color:var(--navy);
+  }
+  .card-light p{color:var(--text-body);}
+  .card-dark{
+    background:var(--blue);color:#fff;
+    box-shadow:0 10px 15px rgba(0,119,181,0.15);
+    grid-column:span 2;
+  }
+  .card-dark p{color:rgba(255,255,255,0.9);}
+  .card-glass{
+    backdrop-filter:blur(6px);background:rgba(255,255,255,0.7);
+    border:1px solid rgba(255,255,255,0.3);
+    grid-column:span 2;
+  }
+  .card-glass p{color:var(--text-body);}
+  .card-tall{grid-row:1;}
+
+  /* ---------- Lead Form Section (added) ---------- */
+  .lead-form-section{
+    padding:64px;
+    background:linear-gradient(157deg, rgb(248,249,255) 0%, rgb(211,228,254) 100%);
+  }
+  .lead-form-inner{
+    max-width:640px;margin:0 auto;text-align:center;
+    display:flex;flex-direction:column;gap:24px;align-items:center;
+  }
+  .lead-form-inner h2{font-size:32px;font-weight:600;letter-spacing:-0.32px;color:var(--navy);}
+  .lead-form-inner > p{font-size:16px;color:var(--text-muted);}
+  .lead-form{
+    width:100%;background:#fff;border:1px solid var(--border-soft);
+    border-radius:12px;box-shadow:0 10px 15px rgba(0,119,181,0.08);
+    padding:32px;display:flex;flex-direction:column;gap:16px;text-align:left;
+  }
+  .form-field{display:flex;flex-direction:column;gap:6px;}
+  .form-field label{font-size:14px;font-weight:500;color:var(--navy);}
+  .form-field input{
+    font-size:16px;padding:12px 14px;border-radius:8px;
+    border:1px solid var(--border-soft);color:var(--navy);
+    font-family:inherit;
+  }
+  .form-field input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .form-submit{
+    background:var(--blue);color:#fff;font-size:14px;font-weight:500;letter-spacing:0.14px;
+    padding:16px;border-radius:8px;box-shadow:0 10px 15px rgba(0,119,181,0.2);
+    margin-top:8px;
+  }
+  .form-submit:disabled{opacity:0.6;cursor:not-allowed;}
+  .form-status{font-size:14px;text-align:center;min-height:20px;}
+  .form-status.success{color:#0a7a3d;}
+  .form-status.error{color:#c0362c;}
+
+  /* ---------- Footer ---------- */
+  .footer{background:var(--navy);padding:48px 64px;display:flex;flex-direction:column;gap:24px;}
+  .footer-grid{
+    max-width:1280px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  }
+  .footer-brand{grid-column:span 2;display:flex;flex-direction:column;gap:16px;}
+  .footer-brand h3{font-size:32px;font-weight:700;letter-spacing:-0.32px;color:var(--bg-soft);}
+  .footer-brand p{font-size:16px;line-height:24px;color:var(--blue-light);max-width:384px;}
+  .footer-links{display:flex;flex-direction:column;gap:12px;}
+  .footer-links a{font-size:16px;color:var(--blue-light);}
+  .footer-links a:hover{color:#fff;}
+  .footer-bottom{
+    max-width:1280px;margin:0 auto;width:100%;
+    border-top:1px solid rgba(211,228,254,0.2);padding-top:13px;
+  }
+  .footer-bottom p{font-size:14px;color:var(--blue-light);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1024px){
+    .nav-inner,.hero,.achievements,.lead-form-section,.footer{padding-left:32px;padding-right:32px;}
+    .hero-inner{flex-direction:column;}
+    .hero-copy,.hero-visual{width:100%;}
+    .bento{grid-template-columns:1fr 1fr;}
+    .card-dark,.card-glass{grid-column:span 2;}
+  }
+  @media (max-width:768px){
+    .desktop-nav{display:none;}
+    .nav-toggle{display:block;}
+    .hero{padding-top:112px;}
+    .hero h1{font-size:36px;line-height:42px;}
+    .bento{grid-template-columns:1fr;}
+    .card-dark,.card-glass{grid-column:span 1;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .footer-brand{grid-column:span 2;}
+  }
+  @media (max-width:480px){
+    .nav-inner,.hero,.achievements,.lead-form-section,.footer{padding-left:20px;padding-right:20px;}
+    .hero-buttons{flex-direction:column;}
+    .footer-grid{grid-template-columns:1fr;}
+    .footer-brand{grid-column:span 1;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <div class="logo">GrowthCore</div>
+      <nav class="desktop-nav">
+        <a href="#process">Process</a>
+        <a href="#impact">Impact</a>
+        <a href="#impact">Results</a>
+        <a href="#audit-form">Pricing</a>
+      </nav>
+      <a class="btn-book" href="#audit-form">Book Audit</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="process">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">Premium LinkedIn Growth Strategy</span>
+          <h1>Turn Your LinkedIn From<span>Invisible to Influential</span></h1>
+          <p class="lead">We don't just "optimize profiles." We build your personal brand from scratch — with strategy, content, and consistency that actually gets you seen.</p>
+          <p class="callout">From 0 to hero on LinkedIn — without confusion, guesswork, or wasting months figuring it out alone.</p>
+          <div class="hero-buttons">
+            <a class="btn-primary" href="https://payments.cashfree.com/forms/getaudit" target="_blank" rel="noopener">Get Your Profile Audit</a>
+            <a class="btn-secondary" href="#audit-form">Start Growing Today</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-visual-frame">
+            <svg viewBox="0 0 552 414" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GrowthCore dashboard preview" style="width:100%;aspect-ratio:4/3;border-radius:8px;display:block;">
+              <defs>
+                <linearGradient id="dashBg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f8f9ff"/>
+                  <stop offset="100%" stop-color="#d3e4fe"/>
+                </linearGradient>
+                <linearGradient id="chartLine" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#005d8f"/>
+                  <stop offset="100%" stop-color="#4fb8e8"/>
+                </linearGradient>
+              </defs>
+              <rect width="552" height="414" fill="url(#dashBg)"/>
+              <rect x="24" y="24" width="504" height="40" rx="8" fill="#ffffff"/>
+              <circle cx="48" cy="44" r="8" fill="#005d8f"/>
+              <rect x="68" y="38" width="120" height="12" rx="6" fill="#0b1c30" opacity="0.7"/>
+              <rect x="420" y="34" width="88" height="20" rx="10" fill="#005d8f"/>
+              <rect x="24" y="80" width="240" height="120" rx="10" fill="#ffffff"/>
+              <rect x="40" y="96" width="100" height="10" rx="5" fill="#545f73"/>
+              <rect x="40" y="116" width="70" height="24" rx="4" fill="#0b1c30"/>
+              <rect x="40" y="150" width="150" height="8" rx="4" fill="#005d8f" opacity="0.4"/>
+              <rect x="288" y="80" width="240" height="120" rx="10" fill="#ffffff"/>
+              <polyline points="304,170 340,140 376,155 412,110 448,125 484,90 508,100" fill="none" stroke="url(#chartLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="24" y="216" width="504" height="174" rx="10" fill="#ffffff"/>
+              <rect x="40" y="232" width="140" height="10" rx="5" fill="#545f73"/>
+              <polyline points="40,360 90,320 140,340 190,280 240,300 290,250 340,270 390,220 440,240 490,200"
+                fill="none" stroke="url(#chartLine)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="490" cy="200" r="6" fill="#005d8f"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievement Section -->
+    <section class="achievements" id="impact">
+      <div class="achievements-inner">
+        <div class="achievements-heading">
+          <h2>Real Growth. Real Results.</h2>
+          <p>This isn't luck. It's a system that works.</p>
+        </div>
+        <div class="bento">
+          <div class="bento-card card-light card-tall">
+            <div class="icon">👥</div>
+            <h3>100+ Professionals</h3>
+            <p>Helped successfully transition and build authority.</p>
+          </div>
+          <div class="bento-card card-dark card-tall">
+            <div class="icon">📈</div>
+            <h3>Inbound Leads Generation</h3>
+            <p>Turn your profile into a passive lead engine that attracts high-quality prospects while you sleep.</p>
+          </div>
+          <div class="bento-card card-glass">
+            <div class="icon">🚀</div>
+            <h3>Brand Building from Zero</h3>
+            <p>We establish your unique voice and market positioning from day one.</p>
+          </div>
+          <div class="bento-card card-light">
+            <div class="icon">👁️</div>
+            <h3>Organic Reach</h3>
+            <p>Explosive visibility without ad spend.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lead Form Section (added, not part of original Figma) -->
+    <section class="lead-form-section" id="audit-form">
+      <div class="lead-form-inner">
+        <h2>Get Your Free Audit</h2>
+        <p>Share your details and we'll reach out to walk you through your personal LinkedIn audit.</p>
+        <form class="lead-form" id="leadForm" action="javascript:void(0);" onsubmit="return false;">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel">
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Submit</button>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>GrowthCore</h3>
+        <p>Building personal brands that stand out — not blend in.</p>
+      </div>
+      <div class="footer-links">
+        <a href="javascript:void(0);">Strategy</a>
+        <a href="javascript:void(0);">Audit</a>
+        <a href="javascript:void(0);">LinkedIn Guide</a>
+      </div>
+      <div class="footer-links">
+        <a href="javascript:void(0);">Privacy</a>
+        <a href="javascript:void(0);">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 GrowthCore Executive Strategies. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxle6WZSeGdv7I3JD0EimkPxRkwHHD3fOBJ-0HTydtFO0WfysJ21pR57ox2Y4F1jUfwDg/exec";
+
+  var form = document.getElementById("leadForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var statusEl = document.getElementById("formStatus");
+
+  function showSuccess() {
+    statusEl.textContent = "Thanks! We'll be in touch shortly.";
+    statusEl.className = "form-status success";
+    submitBtn.disabled = false;
+    form.reset();
+  }
+
+  function showError() {
+    statusEl.textContent = "Something went wrong. Please try again.";
+    statusEl.className = "form-status error";
+    submitBtn.disabled = false;
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    try {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "";
+      statusEl.className = "form-status";
+
+      var url = SCRIPT_URL + "?" + new URLSearchParams({ name: name, email: email, phone: phone });
+
+      fetch(url, { method: "GET", mode: "no-cors" })
+        .then(function () { showSuccess(); })
+        .catch(function () { showError(); });
+    } catch (err) {
+      showError();
+    }
+
+    return false;
+  });
+</script>
+</body>
+</html>
